@@ -6,6 +6,10 @@ import HistoryData from '../models/HistoryData.js';
 const router = express.Router();
 
 
+router.get('/', (req, res) => {
+  res.send('API is running...');
+});
+
 router.get('/coins', async (req, res) => {
   try {
 
