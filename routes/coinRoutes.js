@@ -6,7 +6,7 @@ import HistoryData from '../models/HistoryData.js';
 const router = express.Router();
 
 
-router.get('/', (req, res) => {
+router.get('/home', (req, res) => {
   res.send('API is running...');
 });
 
@@ -23,7 +23,6 @@ router.get('/coins', async (req, res) => {
       }
     });
 
-    console.log("data" ,data);
 
     // Overwrite CurrentData
     await Promise.all(data.map(async (coin) => {
@@ -74,15 +73,18 @@ router.post('/history', async (req, res) => {
   }
 });
 
-// GET /api/history/:coinId
 router.get('/history/:coinId', async (req, res) => {
   try {
     const { coinId } = req.params;
+    console.log('Fetching history for coin:', coinId);
     const history = await HistoryData.find({ coinId }).sort({ createdAt: 1 });
     res.json(history);
+
+    console.log("History coins",history)
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch history' });
   }
 });
+
 
 export default router;

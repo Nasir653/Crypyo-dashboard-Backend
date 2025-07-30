@@ -7,9 +7,9 @@ import cron from 'node-cron';
 
 dotenv.config();
 
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGO_URI);
 
-cron.schedule('0 * * * *', async () => {
+cron.schedule('* * * * *', async () => {
   try {
     const { data } = await axios.get('https://api.coingecko.com/api/v3/coins/markets', {
       params: {
